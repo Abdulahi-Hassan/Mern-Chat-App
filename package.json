@@ -5,7 +5,7 @@
   "scripts": {
     "sarver":"nodemon backend/App.js",
     "start": "node backend/App.js",
-    "build": "npm i && nm i --prefix frontend && npm run build --prefix frontend"
+    "build": "npm i && npm i --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",

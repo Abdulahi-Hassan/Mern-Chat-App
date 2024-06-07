@@ -7,7 +7,7 @@ const path = require("path");
 const { app, server } = require("./socket/socket");
 app.use(express.json());
 app.use(CookieParser());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors());
 app.use("/api/auth", require("./routes/Auth-Routes"));
 app.use("/api", require("./routes/User-Routes"));
 app.use("/api/message", require("./routes/Message-Routes"));
