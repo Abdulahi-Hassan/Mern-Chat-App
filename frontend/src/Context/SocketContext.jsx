@@ -12,7 +12,7 @@ export const SocketProvider = ({ children }) => {
   const { author } = UseAuthor();
   useEffect(() => {
     if (author) {
-      const socket = io("http://localhost:3000", {
+      const socket = io("https://mern-chat-app-ak5j.onrender.com", {
         query: {
           userId: author._id,
         },
