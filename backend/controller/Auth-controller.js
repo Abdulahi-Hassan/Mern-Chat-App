@@ -21,14 +21,11 @@ exports.SignUp = async (req, res) => {
     Profile: Gender === "male" ? Boy : Girl,
   });
 
+  GenerateToken(NewUser,res)
   const OldUser = await User.findOne({ Email });
   if (OldUser) return res.status(200).json("User Already Registered");
   await NewUser.save();
-  res.json({
-    status: "Success",
-    message: "Successfully created",
-    NewUser,
-  });
+  
 };
 
 exports.Login = async (req, res) => {

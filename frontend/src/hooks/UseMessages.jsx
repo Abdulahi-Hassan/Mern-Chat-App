@@ -1,6 +1,6 @@
 import axios from "axios";
 import { endpoint } from "../App";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useconversation from "../zustand/UseConversation";
 function UseSendMessages() {
   const [loading, setloading] = useState(false);
@@ -11,12 +11,10 @@ function UseSendMessages() {
       endpoint + `/message/send/${selectedConversation._id}`,
       Message
     );
-
     setMessages([...messages, data]);
     setloading(false);
-    console.log(messages)
   };
-  return { SendRequestSendMessage, loading };
+return { SendRequestSendMessage, loading };
 }
 
 export default UseSendMessages;

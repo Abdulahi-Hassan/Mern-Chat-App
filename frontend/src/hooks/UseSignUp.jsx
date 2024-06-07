@@ -5,7 +5,6 @@ import { endpoint } from "../App";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function UseSignUp() {
-  let navigate=useNavigate()
   const { setauthor } = UseAuthor();
   const [loading, setloading] = useState(false);
   const SendRequestSignUp = async (SignUp) => {
@@ -13,12 +12,9 @@ function UseSignUp() {
     let { data } = await axios.post(endpoint + "/auth/signup", SignUp,{withCredentials:true});
     if (data.status === "Success") {
       toast.success(data.message);
-      // localStorage.setItem("chat-user", JSON.stringify(data));
-      // setauthor(data);
-      setloading(false);
-     setTimeout(() => {
-      navigate('/login')
-     }, 3000);
+      localStorage.setItem("chat-user", JSON.stringify(data));
+      setauthor(data);
+      setloading(false);;
     } else {
       toast.error(data);
       setloading(false);

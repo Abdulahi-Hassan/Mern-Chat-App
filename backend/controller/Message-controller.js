@@ -1,7 +1,8 @@
 const Receive = require("../model/Conversation-Model");
 const Send = require("../model/Message-Model");
+const { GetReceivedId,io } = require("../socket/socket");
 exports.SendMessage = async (req, res) => {
-  let { Message } = req.body;
+  let { Message } = req.body
   const SendID = req.user;
   const { id: ReceiveID } = req.params;
   let NewConservation = await Receive.findOne({
@@ -17,28 +18,24 @@ exports.SendMessage = async (req, res) => {
   if (NewMessage) {
     NewConservation.Message.push(NewMessage._id);
   }
-
   await Promise.all([NewMessage.save(), NewConservation.save()]);
-  res.json({
-    status: "Success",
-    message: "Successfully sent message",
-    NewMessage,
-    NewConservation,
-  });
+  const GetReceivedID = GetReceivedId(ReceiveID);
+  if (GetReceivedID) {
+    io.to(GetReceivedID).emit("NewMessage", NewMessage);
+  }
+
+  res.json(NewMessage);
 };
 
 exports.GetMessage = async (req, res) => {
-  let { Message } = req.body;
   const SendID = req.user;
   const { id: ReceiveID } = req.params;
   let NewConservation = await Receive.findOne({
     Participants: { $all: [SendID, ReceiveID] },
   }).populate("Message");
 
-  if(!NewConservation) return res.json([])
-  const message=NewConservation.Message;
+  if (!NewConservation) return res.json([]);
+  const message = NewConservation.Message;
 
-  res.json(
-    message,
-  );
+  res.json(message);
 };

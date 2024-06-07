@@ -3,12 +3,12 @@ import useconversation from "../../zustand/UseConversation";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import { TiMessage } from "react-icons/ti";
+import { UseAuthor } from "../../Context/Auth-context";
 
 function MessageContainer() {
  const {selectedConversation,setselectedConversation} =useconversation()
-  
  useEffect(()=>{
-return setselectedConversation(null)
+return () =>setselectedConversation(null)
  },[setselectedConversation])
   return (
     <div className="md:min-w-[450px] flex flex-col ">
@@ -20,7 +20,6 @@ return setselectedConversation(null)
             <span className="label-text "></span>
             <span className="text-gray-900 font-bold">{selectedConversation.FullName}</span>
           </div>
-
           <Messages />
           <MessageInput />
         </>
@@ -32,10 +31,11 @@ return setselectedConversation(null)
 export default MessageContainer;
 
 const NewChatSelected = () => {
+   const {author} =UseAuthor()
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div className="px-4 text-center sm:text-lg md:text-clip text-gray-200 font-semibold flex flex-col items-center gap-2">
-        <p>Welcome f Liibaan </p>
+        <p>Welcome  {author.FullName} </p>
         <p>Select a chat to tart messaging</p>
         <TiMessage className="text-3xl md:text-6xl text-center" />
       </div>
