@@ -4,8 +4,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import Home from "./pages/Home/Home";
 import { Toaster } from "react-hot-toast";
 import { UseAuthor } from "./Context/Auth-context";
-// export const endpoint = "https://mern-chat-app-cnh8.onrender.com/api";
-export const endpoint = "http://localhost:3000/api";
+export const endpoint = "https://mern-chat-app-ak5j.onrender.com/api";
 function App() {
   const { author } = UseAuthor();
   return (
